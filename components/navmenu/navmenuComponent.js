@@ -5,23 +5,26 @@ class MenuComponent extends HTMLElement {
         shadow.innerHTML = `
             <style>
                 @import url('/css/bootstrap/bootstrap.min.css');
+                nav .navbar-nav {
+                    flex-direction: row;
+                    justify-content: flex-end;
+                    gap: 15px;
+                }
+                nav .nav-link {
+                    padding: 0.5rem 1rem;
+                }
             </style>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="container-fluid">
+            <nav class="navbar navbar-dark bg-dark">
+                <div class="container-fluid d-flex justify-content-between align-items-center">
                     <a class="navbar-brand" href="#">Mi Logo</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" id="sellOption">Vender</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" id="hideOption">Otra Opción</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="sellOption">Vender</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="hideOption">Otra Opción</a>
+                        </li>
+                    </ul>
                 </div>
             </nav>
         `;
@@ -31,25 +34,22 @@ class MenuComponent extends HTMLElement {
         const sellOption = this.shadowRoot.getElementById('sellOption');
         const hideOption = this.shadowRoot.getElementById('hideOption');
         const mainContainer = document.getElementById('mainContainer');
-        const navbarToggler = this.shadowRoot.getElementById('navbarToggler');
-        const navbarNav = this.shadowRoot.getElementById('navbarNav');
 
+        // Iniciar el contenedor principal como vacío
+        mainContainer.style.display = 'none';
 
+        // Función para mostrar los componentes dentro de mainContainer
         function showComponents() {
             mainContainer.style.display = 'block';
         }
 
+        // Función para ocultar los componentes dentro de mainContainer
         function hideComponents() {
             mainContainer.style.display = 'none';
         }
 
-        function toggleNavbar() {
-            navbarNav.classList.toggle('collapse');
-        }
-
         sellOption.addEventListener('click', showComponents);
         hideOption.addEventListener('click', hideComponents);
-        navbarToggler.addEventListener('click', toggleNavbar);
     }
 }
 
