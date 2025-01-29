@@ -1,10 +1,10 @@
-const URL_API = "http://localhost:3000";
+const URL_API = "http://localhost:3000/";
 const myHeaders = new Headers({
     "Content-Type": "application/json"
 });
 const getProduct = async () => {
     try {
-        const response = await fetch(`${URL_API}/products`);
+        const response = await fetch(`${URL_API}products`);
         if (!response.ok) {
             throw new Error(`Error ${response.status}: No se pudieron obtener los productos`);
         }
@@ -16,7 +16,7 @@ const getProduct = async () => {
 };
 const postProduct = async (datos) => {
     try {
-        return await fetch(`${URL_API}/contacts`, {
+        return await fetch(`${URL_API}products`, {
             method: "POST",
             headers: myHeaders,
             body: JSON.stringify(datos)
@@ -24,24 +24,41 @@ const postProduct = async (datos) => {
     } catch (error) {
         console.error('Error en la solicitud POST:', error.message);
     }
-}
-const patchProduct = async (datos,id) =>{
-
+};
+const postInvoice = async (datos) => {
     try {
-        return await fetch(`${URL_API}/contacts/${id}`, {
-            method: "PATCH",
+        return await fetch(`${URL_API}invoices`, {
+            method: "POST",
             headers: myHeaders,
             body: JSON.stringify(datos)
         });
     } catch (error) {
         console.error('Error en la solicitud POST:', error.message);
     }
+};
+const patchProduct = async (datos, id) => {
+    try {
+        const response = await fetch(`${URL_API}products/${id}`, {
+            method: "PATCH",
+            headers: myHeaders,
+            body: JSON.stringify(datos)
+        });
 
-}
+        if (!response.ok) {
+            throw new Error(`⚠ Error ${response.status}: No se pudo actualizar el producto ${id}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error(`❌ Error en la solicitud PATCH para el producto ${id}:`, error.message);
+        return null; // Devolver null si falla
+    }
+};
+
 const deleteProduct = async (id) =>{
 
     try {
-        return await fetch(`${URL_API}/contacts/${id}`, {
+        return await fetch(`${URL_API}products/${id}`, {
             method: "DELETE",
             headers: myHeaders,
         });
@@ -54,5 +71,6 @@ export {
     getProduct as getProducts,
     postProduct as postProducts,
     patchProduct as patchProducts,
-    deleteProduct as deleteProducts
+    deleteProduct as deleteProducts,
+    postInvoice as postInvoices
 };

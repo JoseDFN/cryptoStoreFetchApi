@@ -18,7 +18,7 @@ class HeaderComponent extends HTMLElement {
               <!-- Número de Identificación -->
               <div class="mb-3">
                 <label for="identificacion" class="form-label">Número de Identificación</label>
-                <input type="text" id="identificacion" class="form-control" placeholder="Ingrese su número de identificación">
+                <input type="number" id="identificacion" class="form-control" placeholder="Ingrese su número de identificación">
               </div>
 
               <!-- Nombre y Apellido -->

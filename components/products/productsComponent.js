@@ -1,6 +1,5 @@
 import '/js/bootstrap/bootstrap.min.js';  // Funcionalidades de Bootstrap
-import {getProducts, patchProducts} from '../../api/productsApi.js'
-import {productos} from '../../data/productos.js'
+import {getProducts} from '../../api/productsApi.js'
 class ProductsComponent extends HTMLElement {
     constructor() {
       super();

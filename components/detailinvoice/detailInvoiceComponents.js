@@ -1,3 +1,5 @@
+import{postInvoices, patchProducts, getProducts} from '../../api/productsApi.js'
+
 class DetailComponent extends HTMLElement {
     constructor() {
       super();
@@ -25,7 +27,7 @@ class DetailComponent extends HTMLElement {
     </div>
     `;
     }
-    connectedCallback() {
+    async connectedCallback() {
       const subtotalElem = this.shadowRoot.querySelector('#subtotal');
       const ivaElem = this.shadowRoot.querySelector('#iva');
       const totalElem = this.shadowRoot.querySelector('#total');
@@ -41,37 +43,93 @@ class DetailComponent extends HTMLElement {
           ivaElem.textContent = iva.toFixed(2);
           totalElem.textContent = total.toFixed(2);
       });
-  
+
       // Manejar el clic en el botón "Pagar"
-      btnPagar.addEventListener('click', () => {
-          const factura = this.generarFactura();
-  
-          if (factura) {
-              this.guardarLocalStorage(factura);
-              alert('Factura guardada exitosamente.');
-              this.limpiarCampos();
-          } else {
-              alert('Error: Verifique que todos los campos estén completos.');
-          }
-      });
+      btnPagar.addEventListener('click', async () => {
+        const factura = this.generarFactura();
+    
+        if (factura) {
+            await this.actualizarStockProductos();
+            await this.saveInvoiceToServer(factura);
+            
+
+            alert('Factura guardada exitosamente.');
+            this.limpiarCampos();
+        } else {
+            alert('Error: Verifique que todos los campos estén completos.');
+        }
+    });
   }
+
+  async saveInvoiceToServer(invoice) {
+    try {
+        const response = await postInvoices(invoice);
+        if (response && response.ok) {
+            console.log("Factura guardada en el servidor con éxito.");
+        } else {
+            console.error("Error al guardar la factura en el servidor.");
+        }
+    } catch (error) {
+        console.error("Error en la solicitud:", error.message);
+    }
+  };
+
+  async actualizarStockProductos() {
+    try {
+        const productosDB = await getProducts();
+        console.log("📌 Productos en la base de datos:", productosDB);
+
+        const productosTabla = this.obtenerProductosTabla();
+        console.log("📌 Productos comprados:", productosTabla);
+
+        const actualizaciones = productosTabla
+            .map(productoTabla => {
+                const productoDB = productosDB.find(p => p.id === productoTabla.id);
+                if (!productoDB) {
+                    console.warn(`⚠ Producto con ID ${productoTabla.id} no encontrado en la base de datos.`);
+                    return null;
+                }
+
+                const nuevoStock = productoDB.stock - productoTabla.cantidad;
+                if (nuevoStock < 0) {
+                    console.warn(`⚠ Stock insuficiente para el producto ${productoDB.id}. No se actualizará.`);
+                    return null;
+                }
+
+                return { id: productoDB.id, stock: nuevoStock };
+            })
+            .filter(update => update !== null);
+
+        if (actualizaciones.length === 0) {
+            console.warn("⚠ No hay productos para actualizar.");
+            return;
+        }
+
+        // Ejecutar las actualizaciones en paralelo
+        await Promise.all(actualizaciones.map(({ id, stock }) => patchProducts({ stock }, id)));
+
+        console.log("✅ Stock actualizado exitosamente.");
+    } catch (error) {
+        console.error("❌ Error al actualizar stock:", error);
+    }
+}
   
   obtenerProductosTabla() {
       const summaryComponent = document.querySelector('summary-component');
       const filas = summaryComponent.shadowRoot.querySelectorAll('tbody tr');
   
       const productos = Array.from(filas).map(fila => {
-          const codigo = fila.querySelector('td:nth-child(1)').textContent;
+          const id = fila.querySelector('td:nth-child(1)').textContent;
           const nombre = fila.querySelector('td:nth-child(2)').textContent;
           const vUnidad = parseFloat(fila.querySelector('td:nth-child(3)').textContent);
           const cantidad = parseInt(fila.querySelector('td:nth-child(4)').textContent, 10);
           const subtotal = parseFloat(fila.querySelector('td:nth-child(5)').textContent);
   
-          return { codigo, nombre, vUnidad, cantidad, subtotal };
+          return { id, nombre, vUnidad, cantidad, subtotal };
       });
   
       return productos;
-  }
+  };
   
   generarFactura() {
       const headerComponent = document.querySelector('header-component');
@@ -92,18 +150,18 @@ class DetailComponent extends HTMLElement {
       }
   
       return {
-          nroFactura,
+          id:nroFactura,
           header: { identificacion, nombre, apellido, direccion, email },
           detailFact: productos,
           summary: { subtotal, iva, total }
       };
   }
   
-  guardarLocalStorage(factura) {
-      const facturas = JSON.parse(localStorage.getItem('facturas')) || [];
-      facturas.push(factura);
-      localStorage.setItem('facturas', JSON.stringify(facturas));
-  }
+  // guardarLocalStorage(factura) {
+  //     const facturas = JSON.parse(localStorage.getItem('facturas')) || [];
+  //     facturas.push(factura);
+  //     localStorage.setItem('facturas', JSON.stringify(facturas));
+  // }
   
   limpiarCampos() {
       const headerComponent = document.querySelector('header-component');

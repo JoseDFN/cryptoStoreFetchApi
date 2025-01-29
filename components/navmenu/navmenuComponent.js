@@ -22,7 +22,7 @@ class MenuComponent extends HTMLElement {
                             <a class="nav-link" href="#" id="sellOption">Vender</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" id="hideOption">Productos</a>
+                            <a class="nav-link" href="#" id="productsOption">Productos</a>
                         </li>
                     </ul>
                 </div>
@@ -32,24 +32,28 @@ class MenuComponent extends HTMLElement {
 
     connectedCallback() {
         const sellOption = this.shadowRoot.getElementById('sellOption');
-        const hideOption = this.shadowRoot.getElementById('hideOption');
+        const productsOption = this.shadowRoot.getElementById('productsOption');
         const mainContainer = document.getElementById('mainContainer');
+        const productsContainer = document.getElementById('productsContainer');
 
         // Iniciar el contenedor principal como vacío
         mainContainer.style.display = 'none';
+        productsContainer.style.display = 'none';
 
         // Función para mostrar los componentes dentro de mainContainer
         function showComponents() {
             mainContainer.style.display = 'block';
+            productsContainer.style.display = 'none';
         }
 
         // Función para ocultar los componentes dentro de mainContainer
         function hideComponents() {
             mainContainer.style.display = 'none';
+            productsContainer.style.display = 'block';
         }
 
         sellOption.addEventListener('click', showComponents);
-        hideOption.addEventListener('click', hideComponents);
+        productsOption.addEventListener('click', hideComponents);
     }
 }
 

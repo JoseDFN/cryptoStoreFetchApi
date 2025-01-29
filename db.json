@@ -1,41 +1,288 @@
 {
-    "products": [
+  "products": [
+    {
+      "id": "BTC",
+      "name": "Bitcoin",
+      "unitCost": 102000,
+      "stock": 97,
+      "imgsrc": "https://res.coinpaper.com/coinpaper/bitcoin_btc_logo_62c59b827e.png"
+    },
+    {
+      "id": "ETH",
+      "name": "Ethereum",
+      "unitCost": 3100,
+      "stock": 99,
+      "imgsrc": "https://res.coinpaper.com/coinpaper/ethereum_eth_logo_e69b1c2368.png"
+    },
+    {
+      "id": "SOL",
+      "name": "Solana",
+      "unitCost": 243,
+      "stock": 100,
+      "imgsrc": "https://res.coinpaper.com/coinpaper/solana_sol_logo_32f9962968.png"
+    },
+    {
+      "id": "AVAX",
+      "name": "Avalanche",
+      "unitCost": 35,
+      "stock": 100,
+      "imgsrc": "https://res.coinpaper.com/coinpaper/avalanche_avax_logo_3d3974d813.png"
+    },
+    {
+      "id": "BNB",
+      "name": "BNB",
+      "unitCost": 664,
+      "stock": 100,
+      "imgsrc": "https://res.coinpaper.com/coinpaper/bnb_bnb_logo_a2a64c3335.png"
+    }
+  ],
+  "invoices": [
+    {
+      "id": "194B3FA6C88",
+      "header": {
+        "identificacion": "1097492205",
+        "nombre": "José David",
+        "apellido": "Flórez Navarrete",
+        "direccion": "calle 13N #2-81 T4 apto 513",
+        "email": "jose.david.florez.navarrete@gmail.com"
+      },
+      "detailFact": [
         {
-            "id":"BTC",
-            "name": "Bitcoin",
-            "unitCost": 102000,
-            "stock":100,
-            "imgsrc": "https://res.coinpaper.com/coinpaper/bitcoin_btc_logo_62c59b827e.png"
+          "id": "ETH",
+          "nombre": "Ethereum",
+          "vUnidad": 3100,
+          "cantidad": 2,
+          "subtotal": 6200
         },
         {
-            "id":"ETH",
-            "name": "Ethereum",
-            "unitCost": 3100,
-            "stock":100,
-            "imgsrc": "https://res.coinpaper.com/coinpaper/ethereum_eth_logo_e69b1c2368.png"
-        },
-        {
-            "id":"SOL",
-            "name": "Solana",
-            "unitCost": 243,
-            "stock":100,
-            "imgsrc": "https://res.coinpaper.com/coinpaper/solana_sol_logo_32f9962968.png"
-        },
-        {
-            "id":"AVAX",
-            "name": "Avalanche",
-            "unitCost": 35,
-            "stock":100,
-            "imgsrc": "https://res.coinpaper.com/coinpaper/avalanche_avax_logo_3d3974d813.png"
-        },
-        {
-            "id":"BNB",
-            "name": "BNB",
-            "unitCost": 664,
-            "stock":100,
-            "imgsrc": "https://res.coinpaper.com/coinpaper/bnb_bnb_logo_a2a64c3335.png"
+          "id": "BTC",
+          "nombre": "Bitcoin",
+          "vUnidad": 102000,
+          "cantidad": 1,
+          "subtotal": 102000
         }
-    ],
-    "invoice":
-    []
+      ],
+      "summary": {
+        "subtotal": 108200,
+        "iva": 20558,
+        "total": 128758
+      }
+    },
+    {
+      "id": "194B3FAC003",
+      "header": {
+        "identificacion": "1097492205",
+        "nombre": "José David",
+        "apellido": "Flórez Navarrete",
+        "direccion": "calle 13N #2-81 T4 apto 513",
+        "email": "chapcripto@gmail.com"
+      },
+      "detailFact": [
+        {
+          "id": "SOL",
+          "nombre": "Solana",
+          "vUnidad": 243,
+          "cantidad": 1,
+          "subtotal": 243
+        }
+      ],
+      "summary": {
+        "subtotal": 243,
+        "iva": 46.17,
+        "total": 289.17
+      }
+    },
+    {
+      "id": "194B3FBA4DE",
+      "header": {
+        "identificacion": "1097492205",
+        "nombre": "José David",
+        "apellido": "Flórez Navarrete",
+        "direccion": "calle 13N #2-81 T4 apto 513",
+        "email": "chapcripto@gmail.com"
+      },
+      "detailFact": [
+        {
+          "id": "ETH",
+          "nombre": "Ethereum",
+          "vUnidad": 3100,
+          "cantidad": 1,
+          "subtotal": 3100
+        }
+      ],
+      "summary": {
+        "subtotal": 3100,
+        "iva": 589,
+        "total": 3689
+      }
+    },
+    {
+      "id": "194B3FD1496",
+      "header": {
+        "identificacion": "1097492205",
+        "nombre": "José David",
+        "apellido": "Flórez Navarrete",
+        "direccion": "calle 13N #2-81 T4 apto 513",
+        "email": "chaps9853@gmail.com"
+      },
+      "detailFact": [
+        {
+          "id": "AVAX",
+          "nombre": "Avalanche",
+          "vUnidad": 35,
+          "cantidad": 2,
+          "subtotal": 70
+        }
+      ],
+      "summary": {
+        "subtotal": 70,
+        "iva": 13.3,
+        "total": 83.3
+      }
+    },
+    {
+      "id": "194B3FF1F89",
+      "header": {
+        "identificacion": "1097492205",
+        "nombre": "José David",
+        "apellido": "Flórez Navarrete",
+        "direccion": "calle 13N #2-81 T4 apto 513",
+        "email": "chaps9853@gmail.com"
+      },
+      "detailFact": [
+        {
+          "id": "ETH",
+          "nombre": "Ethereum",
+          "vUnidad": 3100,
+          "cantidad": 1,
+          "subtotal": 3100
+        }
+      ],
+      "summary": {
+        "subtotal": 3100,
+        "iva": 589,
+        "total": 3689
+      }
+    },
+    {
+      "id": "194B4056BBC",
+      "header": {
+        "identificacion": "64262624968968",
+        "nombre": "José David",
+        "apellido": "Flórez Navarrete",
+        "direccion": "calle 13N #2-81 T4 apto 513",
+        "email": "chaps9853@gmail.com"
+      },
+      "detailFact": [
+        {
+          "id": "ETH",
+          "nombre": "Ethereum",
+          "vUnidad": 3100,
+          "cantidad": 1,
+          "subtotal": 3100
+        }
+      ],
+      "summary": {
+        "subtotal": 3100,
+        "iva": 589,
+        "total": 3689
+      }
+    },
+    {
+      "id": "194B405A60D",
+      "header": {
+        "identificacion": "352637474",
+        "nombre": "José David",
+        "apellido": "Flórez Navarrete",
+        "direccion": "calle 13N #2-81 T4 apto 513",
+        "email": "jose.david.florez.navarrete@gmail.com"
+      },
+      "detailFact": [
+        {
+          "id": "SOL",
+          "nombre": "Solana",
+          "vUnidad": 243,
+          "cantidad": 1,
+          "subtotal": 243
+        }
+      ],
+      "summary": {
+        "subtotal": 243,
+        "iva": 46.17,
+        "total": 289.17
+      }
+    },
+    {
+      "id": "194B4079122",
+      "header": {
+        "identificacion": "53263746784",
+        "nombre": "José David",
+        "apellido": "Flórez Navarrete",
+        "direccion": "calle 13N #2-81 T4 apto 513",
+        "email": "chapcripto@gmail.com"
+      },
+      "detailFact": [
+        {
+          "id": "ETH",
+          "nombre": "Ethereum",
+          "vUnidad": 3100,
+          "cantidad": 1,
+          "subtotal": 3100
+        }
+      ],
+      "summary": {
+        "subtotal": 3100,
+        "iva": 589,
+        "total": 3689
+      }
+    },
+    {
+      "id": "194B40AE020",
+      "header": {
+        "identificacion": "436485964925742",
+        "nombre": "José David",
+        "apellido": "Flórez Navarrete",
+        "direccion": "calle 13N #2-81 T4 apto 513",
+        "email": "chaps9853@gmail.com"
+      },
+      "detailFact": [
+        {
+          "id": "ETH",
+          "nombre": "Ethereum",
+          "vUnidad": 3100,
+          "cantidad": 1,
+          "subtotal": 3100
+        }
+      ],
+      "summary": {
+        "subtotal": 3100,
+        "iva": 589,
+        "total": 3689
+      }
+    },
+    {
+      "id": "194B40BE2EE",
+      "header": {
+        "identificacion": "3537612636",
+        "nombre": "José David",
+        "apellido": "Flórez Navarrete",
+        "direccion": "calle 13N #2-81 T4 apto 513",
+        "email": "chaps9853@gmail.com"
+      },
+      "detailFact": [
+        {
+          "id": "ETH",
+          "nombre": "Ethereum",
+          "vUnidad": 3100,
+          "cantidad": 1,
+          "subtotal": 3100
+        }
+      ],
+      "summary": {
+        "subtotal": 3100,
+        "iva": 589,
+        "total": 3689
+      }
+    }
+  ]
 }
