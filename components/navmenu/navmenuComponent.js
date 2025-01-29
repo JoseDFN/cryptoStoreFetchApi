@@ -2,7 +2,7 @@ class MenuComponent extends HTMLElement {
     constructor() {
         super();
         const shadow = this.attachShadow({ mode: 'open' });
-        shadow.innerHTML = `
+        shadow.innerHTML = /*html*/ `
             <style>
                 @import url('/css/bootstrap/bootstrap.min.css');
                 nav .navbar-nav {
@@ -22,7 +22,7 @@ class MenuComponent extends HTMLElement {
                             <a class="nav-link" href="#" id="sellOption">Vender</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" id="hideOption">Otra Opción</a>
+                            <a class="nav-link" href="#" id="hideOption">Productos</a>
                         </li>
                     </ul>
                 </div>

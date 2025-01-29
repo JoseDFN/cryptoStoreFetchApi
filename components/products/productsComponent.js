@@ -1,4 +1,5 @@
 import '/js/bootstrap/bootstrap.min.js';  // Funcionalidades de Bootstrap
+import {getProducts, patchProducts} from '../../api/productsApi.js'
 import {productos} from '../../data/productos.js'
 class ProductsComponent extends HTMLElement {
     constructor() {
@@ -20,9 +21,15 @@ class ProductsComponent extends HTMLElement {
               </select>
             </div>
             <!-- Código del producto -->
-            <div class="mb-3">
-              <label for="codProducto" class="form-label">Código Producto</label>
-              <input type="text" id="codProducto" class="form-control" placeholder="Código del producto" readonly>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="codProducto" class="form-label">Código Producto</label>
+                <input type="text" id="codProducto" class="form-control" placeholder="Código del producto" readonly>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="stockProducto" class="form-label">Stock Producto</label>
+                <input type="number" id="StockProducto" class="form-control" placeholder="Stock del producto" readonly>
+              </div>
             </div>
             <!-- Valor por unidad y cantidad -->
             <div class="row">
@@ -44,60 +51,77 @@ class ProductsComponent extends HTMLElement {
     `;
     }
     connectedCallback() {
-        // Referencias a los elementos del formulario
-    const selectNombre = this.shadowRoot.querySelector('#nombre');
-    const inputCodigo = this.shadowRoot.querySelector('#codProducto');
-    const inputValorUnidad = this.shadowRoot.querySelector('#valorUnidad');
-    const inputCantidad = this.shadowRoot.querySelector('#cantidad');
-    const btnAgregar = this.shadowRoot.querySelector('#btnAgregar');
-    
-    // Rellenar el select con los nombres de los productos
-    productos.forEach(producto => {
-        const {nombre, codigo, vUnidad} = producto
-      const option = document.createElement('option');
-      option.value = codigo; // Usamos el código como valor único
-      option.textContent = nombre;
-      selectNombre.appendChild(option);
-    });
-
-    // Actualizar los campos automáticamente al seleccionar un producto
-    selectNombre.addEventListener('change', () => {
-      const productoSeleccionado = productos.find(producto => producto.codigo === selectNombre.value);
-      const {nombre, codigo, vUnidad} = productoSeleccionado
-      if (productoSeleccionado) {
-        inputCodigo.value = codigo;
-        inputValorUnidad.value = '$' + vUnidad;
+      this.cargarProductos();
+      this.agregarProductoTabla();
+    }
+    async cargarProductos() {
+      try {
+        const selectNombre = this.shadowRoot.querySelector('#nombre');
+        const inputCodigo = this.shadowRoot.querySelector('#codProducto');
+        const inputStock = this.shadowRoot.querySelector('#StockProducto');
+        const inputValorUnidad = this.shadowRoot.querySelector('#valorUnidad');
+        const dataBase = await getProducts();
+  
+        // Rellenar el select con los nombres de los productos
+        dataBase.forEach(producto => {
+          const {name, id} = producto;
+          const option = document.createElement('option');
+          option.value = id; // Usamos el código como valor único
+          option.textContent = name;
+          selectNombre.appendChild(option);
+        });
+  
+        selectNombre.addEventListener('change', () => {
+          const productoSeleccionado = dataBase.find(producto => producto.id === selectNombre.value);
+          if (productoSeleccionado) {
+            const {id, unitCost, stock} = productoSeleccionado;
+            inputCodigo.value = id;
+            inputValorUnidad.value = '$' + unitCost;
+            inputStock.value = stock;
+          }
+        });
+      } catch (error) {
+        console.log("Error al obtener los productos", error);
       }
-    });
+    }
+  
+    async agregarProductoTabla(){
+      try{
+        const selectNombre = this.shadowRoot.querySelector('#nombre');
+        const inputCantidad = this.shadowRoot.querySelector('#cantidad');
+        const btnAgregar = this.shadowRoot.querySelector('#btnAgregar');
+        const dataBase = await getProducts();
 
-    // Manejar el clic del botón "Agregar"
-    btnAgregar.addEventListener('click', () => {
-      const cantidad = parseInt(inputCantidad.value, 10);
+        // Manejar el clic del botón "Agregar"
+        btnAgregar.addEventListener('click', () => {
+          const cantidad = parseInt(inputCantidad.value, 10);
 
-      if (selectNombre.value && cantidad > 0) {
-        const productoSeleccionado = productos.find(producto => producto.codigo === selectNombre.value);
-        const subtotal = productoSeleccionado.vUnidad * cantidad;
+          if (selectNombre.value && cantidad > 0) {
+            const productoSeleccionado = dataBase.find(producto => producto.id === selectNombre.value);
+            const subtotal = productoSeleccionado.unitCost * cantidad;
 
-        // Emitir un evento personalizado con los datos del producto seleccionado
-        this.dispatchEvent(new CustomEvent('producto-agregado', {
-          detail: {
-            codigo: productoSeleccionado.codigo,
-            nombre: productoSeleccionado.nombre,
-            vUnidad: productoSeleccionado.vUnidad,
-            cantidad,
-            subtotal
-          },
-          bubbles: true,
-          composed: true
-        }));
+            // Emitir un evento personalizado con los datos del producto seleccionado
+            this.dispatchEvent(new CustomEvent('producto-agregado', {
+              detail: {
+                codigo: productoSeleccionado.id,
+                nombre: productoSeleccionado.name,
+                vUnidad: productoSeleccionado.unitCost,
+                cantidad,
+                subtotal
+              },
+              bubbles: true,
+              composed: true
+            }));
 
-        // Opcional: Limpiar el campo de cantidad después de agregar
-        inputCantidad.value = '';
-      } else {
-        alert('Por favor, seleccione un producto y una cantidad válida.');
+            // Opcional: Limpiar el campo de cantidad después de agregar
+            inputCantidad.value = '';
+          } else {
+            alert('Por favor, seleccione un producto y una cantidad válida.');
+          }
+        });
+      } catch (error) {
+        console.log("Error al agregar producto a la tabla", error);
       }
-    });
     }
   }
-  
   customElements.define('products-component', ProductsComponent);
