@@ -1,0 +1,44 @@
+{
+    "products": [
+        {
+            "id":1,
+            "nombre": "Bitcoin",
+            "codigo": "BTC",
+            "vUnidad": 102000,
+            "stock":100,
+            "imgsrc": "https://res.coinpaper.com/coinpaper/bitcoin_btc_logo_e68b8dbb0c.svg"
+        },
+        {
+            "id":2,
+            "nombre": "Ethereum",
+            "codigo": "ETH",
+            "vUnidad": 3100,
+            "stock":100,
+            "imgsrc": "https://res.coinpaper.com/coinpaper/ethereum_eth_logo_b64861bd15.svg"
+        },
+        {
+            "id":3,
+            "nombre": "Solana",
+            "codigo": "SOL",
+            "vUnidad": 243,
+            "stock":100,
+            "imgsrc": "https://res.coinpaper.com/coinpaper/solana_sol_logo_28f7fb0af5.svg"
+        },
+        {
+            "id":4,
+            "nombre": "Avalanche",
+            "codigo": "AVAX",
+            "vUnidad": 35,
+            "stock":100,
+            "imgsrc": "https://res.coinpaper.com/coinpaper/avalanche_avax_logo_1fb9c5cb36.svg"
+        },
+        {
+            "id":5,
+            "nombre": "BNB",
+            "codigo": "BNB",
+            "vUnidad": 664,
+            "stock":100,
+            "imgsrc": "https://res.coinpaper.com/coinpaper/bnb_bnb_logo_c9840ff036.svg"
+        }
+    ]
+}
