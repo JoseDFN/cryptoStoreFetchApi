@@ -1,8 +1,26 @@
 {
   "products": [
-    
+    {
+      "id": "BTC",
+      "name": "Bitcoin",
+      "unitCost": 105000,
+      "stock": 100,
+      "imgsrc": "https://res.coinpaper.com/coinpaper/bitcoin_btc_logo_62c59b827e.png"
+    },
+    {
+      "id": "ETH",
+      "name": "Ethereum",
+      "unitCost": 3300,
+      "stock": 100,
+      "imgsrc": "https://res.coinpaper.com/coinpaper/ethereum_eth_logo_e69b1c2368.png"
+    },
+    {
+      "id": "DOT",
+      "name": "Polkadot",
+      "unitCost": 8,
+      "stock": 100,
+      "imgsrc": "https://res.coinpaper.com/coinpaper/Polkadot_Token_Polkadot_Token_Pink_31c2a326fb.png"
+    }
   ],
-  "invoices": [
-    
-  ]
+  "invoices": []
 }
