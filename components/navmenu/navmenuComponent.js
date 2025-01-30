@@ -16,7 +16,7 @@ class MenuComponent extends HTMLElement {
             </style>
             <nav class="navbar navbar-dark bg-dark">
                 <div class="container-fluid d-flex justify-content-between align-items-center">
-                    <a class="navbar-brand" href="#">Mi Logo</a>
+                <img src="../../image/campus.png" alt="Logo" class="img-fluid" style="max-width: 60px; height: auto;">
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="#" id="sellOption">Vender</a>
